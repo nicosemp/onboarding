@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
+import TheHeader from "./components/TheHeader.vue";
+import StartForm from "./components/StartForm.vue";
 </script>
 
 <template>
-  <header></header>
+  <TheHeader />
 
-  <main></main>
+  <main>
+    <StartForm />
+  </main>
 </template>
 
 <style>
