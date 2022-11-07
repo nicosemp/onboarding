@@ -1,87 +1,90 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useOnboardingStore } from "@/stores/onboarding";
 import { isNumber } from "@vueuse/core";
+import { computed } from "vue";
+import StepWorkout from "./StepWorkout.vue";
 
 const onboardingStore = useOnboardingStore();
+
+const buttonText = computed(() => {
+  return onboardingStore.step != 3 ? "Continue" : "Complete";
+});
 </script>
 
 <template>
-  <div class="form">
-    <Transition :name="onboardingStore.slideDirection" mode="out-in">
-      <div v-if="onboardingStore.step === 1" class="form-step">
-        <h1>
-          Hi there,<br />how should<br />
-          we call you?
-        </h1>
-        <input
-          type="text"
-          name="name"
-          v-model="onboardingStore.name"
-          placeholder="Your name"
-        />
-      </div>
-
-      <div v-else-if="onboardingStore.step === 2" class="form-step">
-        <h1>
-          What's<br />your weight,<br />
-          John Doe?
-        </h1>
-        <div
-          class="input-box"
-          :class="{
-            filled:
-              isNumber(onboardingStore.weight) &&
-              !isNaN(onboardingStore.weight),
-          }"
-        >
+  <Transition name="slide-down">
+    <div v-if="onboardingStore.step < 4" class="form">
+      <Transition :name="onboardingStore.slideDirection" mode="out-in">
+        <div v-if="onboardingStore.step === 1" class="form-step">
+          <h1>
+            Hi there,<br />how should<br />
+            we call you?
+          </h1>
           <input
-            type="number"
-            name="weight"
-            v-model="onboardingStore.weight"
-            placeholder="Your weight"
+            type="text"
+            name="name"
+            v-model="onboardingStore.name"
+            placeholder="Your name"
+            autocomplete="off"
           />
         </div>
-      </div>
-
-      <div v-else-if="onboardingStore.step === 3" class="form-step">
-        <h1>
-          What's your<br />
-          preferred<br />
-          workout?
-        </h1>
-        <input type="radio" name="workout" />
-        <label for="workout">workout</label>
-      </div>
-    </Transition>
-
-    <button
-      :disabled="!onboardingStore.canGoNext"
-      @click="onboardingStore.nextStep"
-    >
-      Continue
-    </button>
-  </div>
+        <div v-else-if="onboardingStore.step === 2" class="form-step">
+          <h1>
+            What's<br />your weight,<br />
+            John Doe?
+          </h1>
+          <div
+            class="input-box"
+            :class="{
+              filled:
+                isNumber(onboardingStore.weight) &&
+                !isNaN(onboardingStore.weight),
+            }"
+          >
+            <input
+              type="number"
+              name="weight"
+              v-model="onboardingStore.weight"
+              placeholder="Your weight"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <StepWorkout v-else-if="onboardingStore.step >= 3" />
+      </Transition>
+      <button
+        :disabled="!onboardingStore.canGoNext"
+        @click="onboardingStore.nextStep"
+      >
+        {{ buttonText }}
+      </button>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>
 .form {
   height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  z-index: 1;
   background-color: #fff;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   padding: 60px 30px 0;
 }
-.form-step {
+:deep(.form-step) {
   margin-bottom: 60px;
 }
-h1 {
-  margin-bottom: 40px;
+:deep(h1) {
+  margin-bottom: 41px;
 }
-input {
+:deep(input) {
   width: 100%;
   height: 55px;
-  padding: 16px 20px;
+  padding: 16px 18px;
   border-radius: 20px;
   background-color: var(--ob-gray);
   color: var(--ob-gray-darker);
@@ -124,13 +127,6 @@ input::placeholder {
 }
 input[name="weight"] {
   padding-right: 50px;
-}
-
-input[type="radio"] {
-  display: none;
-}
-input[type="radio"]:checked + label {
-  color: red;
 }
 
 button {

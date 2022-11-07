@@ -1,3 +1,12 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  font-weight: normal;
+}
+
 :root {
   --ob-primary: #7d7ef3;
   --ob-secondary: #efbc67;
@@ -8,16 +17,21 @@
   --ob-black-rgb: 1, 3, 58;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  position: relative;
-  font-weight: normal;
+.color-primary {
+  color: var(--ob-primary);
+}
+.color-secondary {
+  color: var(--ob-secondary);
+}
+.color-tertiary {
+  color: var(--ob-tertiary);
+}
+.color-black {
+  color: var(--ob-black);
 }
 
 body {
+  font-family: "Helvetica", sans-serif;
   background: var(--ob-primary);
   overflow-y: hidden;
 }
@@ -39,11 +53,29 @@ button {
   border: none;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(100vh);
+}
+
 .slide-left-enter-active,
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: all 0.2s ease-out;
+  transition: all 0.2s ease-in-out;
 }
 .slide-left-enter-from,
 .slide-right-leave-to {

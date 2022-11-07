@@ -6,18 +6,26 @@ const onboardingStore = useOnboardingStore();
 </script>
 
 <template>
-  <header>
-    <button @click="onboardingStore.prevStep()" v-if="onboardingStore.step > 0">
-      Back
-    </button>
-    <ProgressDots />
-  </header>
+  <Transition name="fade">
+    <header v-if="onboardingStore.step < 4">
+      <button
+        @click="onboardingStore.prevStep()"
+        v-if="onboardingStore.step > 1"
+      >
+        Back
+      </button>
+      <ProgressDots />
+    </header>
+  </Transition>
 </template>
 
 <style scoped>
 header {
-  margin: 10px 0 20px;
-  height: 40px;
+  position: absolute;
+  width: 100vw;
+  padding-top: 10px;
+  margin-bottom: 20px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,5 +36,9 @@ button {
   border: none;
   position: absolute;
   left: 30px;
+  padding: 0;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 18.4px;
 }
 </style>

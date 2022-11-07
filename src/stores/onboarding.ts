@@ -2,14 +2,21 @@ import { defineStore } from "pinia";
 import { useStorage, StorageSerializers, isNumber } from "@vueuse/core";
 import type { RemovableRef } from "@vueuse/core";
 
+export enum Workout {
+  Easy,
+  Medium,
+  Hard,
+  Extreme,
+}
+
 export const useOnboardingStore = defineStore({
-  id: "counter",
+  id: "onboarding",
   state: (): {
     step: number;
     slideDirection: string;
     name: RemovableRef<string>;
     weight: RemovableRef<number>;
-    workout: RemovableRef<number>;
+    workout: RemovableRef<Workout>;
   } => ({
     step: 1,
     slideDirection: "slide-left",
@@ -28,6 +35,8 @@ export const useOnboardingStore = defineStore({
           return state.name != "";
         case 2:
           return isNumber(state.weight) && !isNaN(state.weight);
+        case 3:
+          return isNumber(state.workout) && !isNaN(state.workout);
         default:
           return false;
       }
@@ -36,7 +45,7 @@ export const useOnboardingStore = defineStore({
   actions: {
     nextStep() {
       this.slideDirection = "slide-left";
-      this.step = Math.min(this.step + 1, 3);
+      this.step = Math.min(this.step + 1, 4);
     },
     prevStep() {
       this.slideDirection = "slide-right";
