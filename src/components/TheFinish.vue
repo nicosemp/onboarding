@@ -32,7 +32,7 @@ const onboardingStore = useOnboardingStore();
 
 <style scoped>
 img {
-  margin-bottom: 43px;
+  margin-bottom: 39px;
 }
 .finish-text {
   margin: 0 30px;
@@ -43,7 +43,7 @@ h1 {
   color: #fff;
 }
 p {
-  margin: 0 30px 63px;
+  margin: 0 30px 64px;
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0.2px;
