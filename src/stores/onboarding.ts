@@ -12,12 +12,16 @@ export enum Workout {
 export const useOnboardingStore = defineStore({
   id: "onboarding",
   state: (): {
+    firstLaunch: boolean;
+    nameInput: HTMLInputElement | null;
     step: number;
     slideDirection: string;
     name: RemovableRef<string>;
     weight: RemovableRef<number | null>;
     workout: RemovableRef<Workout | null>;
   } => ({
+    firstLaunch: true,
+    nameInput: null,
     step: 1,
     slideDirection: "slide-left",
     name: useStorage("name", ""),
@@ -47,7 +51,7 @@ export const useOnboardingStore = defineStore({
       this.slideDirection = "slide-left";
       this.step = Math.min(this.step + 1, 4);
     },
-    restart() {
+    reset() {
       this.slideDirection = "slide-right";
       this.name = "";
       this.weight = null;

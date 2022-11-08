@@ -8,10 +8,7 @@ const onboardingStore = useOnboardingStore();
 <template>
   <Transition name="fade">
     <header v-if="onboardingStore.step < 4">
-      <button
-        @click="onboardingStore.restart()"
-        v-if="onboardingStore.step > 1"
-      >
+      <button @click="onboardingStore.reset()" v-if="onboardingStore.step > 1">
         Back
       </button>
       <ProgressDots />

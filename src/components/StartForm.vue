@@ -1,10 +1,25 @@
 <script setup lang="ts">
 import { useOnboardingStore } from "@/stores/onboarding";
 import { isNumber } from "@vueuse/core";
-import { computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
+import type { Ref } from "vue";
 import StepWorkout from "./StepWorkout.vue";
+import { storeToRefs } from "pinia";
 
 const onboardingStore = useOnboardingStore();
+
+const { nameInput } = storeToRefs(onboardingStore);
+
+watch(nameInput, (value, oldValue) => {
+  // Skip the first launch of the app, otherwise focus the name input
+  if (onboardingStore.firstLaunch) {
+    onboardingStore.firstLaunch = false;
+    return;
+  }
+  if (value != null) {
+    value.focus();
+  }
+});
 
 const buttonText = computed(() => {
   return onboardingStore.step != 3 ? "Continue" : "Complete";
@@ -24,6 +39,7 @@ const buttonText = computed(() => {
             type="text"
             name="name"
             v-model="onboardingStore.name"
+            ref="nameInput"
             placeholder="Your name"
             autocomplete="off"
           />
