@@ -15,8 +15,8 @@ export const useOnboardingStore = defineStore({
     step: number;
     slideDirection: string;
     name: RemovableRef<string>;
-    weight: RemovableRef<number>;
-    workout: RemovableRef<Workout>;
+    weight: RemovableRef<number | null>;
+    workout: RemovableRef<Workout | null>;
   } => ({
     step: 1,
     slideDirection: "slide-left",
@@ -47,10 +47,17 @@ export const useOnboardingStore = defineStore({
       this.slideDirection = "slide-left";
       this.step = Math.min(this.step + 1, 4);
     },
-    prevStep() {
+    restart() {
       this.slideDirection = "slide-right";
-      this.step = Math.max(this.step - 1, 1);
+      this.name = "";
+      this.weight = null;
+      this.workout = null;
+      this.step = 1;
     },
+    // prevStep() {
+    //   this.slideDirection = "slide-right";
+    //   this.step = Math.max(this.step - 1, 1);
+    // },
     asd() {
       this.weight = 3;
     },

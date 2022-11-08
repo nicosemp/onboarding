@@ -9,7 +9,7 @@ const onboardingStore = useOnboardingStore();
   <Transition name="fade">
     <header v-if="onboardingStore.step < 4">
       <button
-        @click="onboardingStore.prevStep()"
+        @click="onboardingStore.restart()"
         v-if="onboardingStore.step > 1"
       >
         Back

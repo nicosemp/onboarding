@@ -67,7 +67,7 @@ const buttonText = computed(() => {
   height: 100vh;
   width: 100vw;
   position: absolute;
-  top: 70px;
+  top: 114px;
   left: 0;
   z-index: 1;
   background-color: #fff;
