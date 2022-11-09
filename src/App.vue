@@ -2,11 +2,11 @@
 import TheHeader from "./components/TheHeader.vue";
 import StartForm from "./components/StartForm.vue";
 import TheFinish from "./components/TheFinish.vue";
-import StatusBar from "./components/StatusBar.vue";
+// import StatusBar from "./components/StatusBar.vue";
 </script>
 
 <template>
-  <StatusBar />
+  <!-- <StatusBar /> -->
 
   <TheHeader />
 

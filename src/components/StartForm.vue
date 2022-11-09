@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useOnboardingStore } from "@/stores/onboarding";
 import { isNumber } from "@vueuse/core";
-import { ref, computed, onMounted, watch } from "vue";
-import type { Ref } from "vue";
+import { computed, watch } from "vue";
 import StepWorkout from "./StepWorkout.vue";
 import { storeToRefs } from "pinia";
 
