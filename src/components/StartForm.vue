@@ -46,7 +46,7 @@ const buttonText = computed(() => {
         <div v-else-if="onboardingStore.step === 2" class="form-step">
           <h1>
             What's<br />your weight,<br />
-            John Doe?
+            {{ onboardingStore.name || "John Doe" }}?
           </h1>
           <div
             class="input-box"
